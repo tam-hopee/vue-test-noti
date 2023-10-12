@@ -1,6 +1,10 @@
 <template>
   <div>
     <button @click="readNotice">{{ countNotice }}</button>
+    <ul>
+      <li v-for="item in list" :key="item.id">
+        {{JSON.stringify(item)}}</li>
+    </ul>
   </div>
 </template>
 
@@ -13,8 +17,9 @@ export default {
   name: 'HelloWorld',
   data() {
     return {
+      list: [],
       countNotice: 0,
-      loginToken: 'eyJraWQiOiJGY2hCY1B6U092REpCb0tFWTNSZjRGSkFkaElGSGNORGJYZ2tKZFh0azAwPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIxMzgxZDRjZi03ZTY2LTQ2NDktYTgxNC1hYjdhOTAwMTg3OTIiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuYXAtbm9ydGhlYXN0LTEuYW1hem9uYXdzLmNvbVwvYXAtbm9ydGhlYXN0LTFfVzlucno3SkNoIiwiY2xpZW50X2lkIjoiM3M3ZjdvMDk4a2pzYTQ3NDhoNGhyZWw4MmIiLCJvcmlnaW5fanRpIjoiNTFjYjVmNzgtYzBhYS00NDY2LWFiM2QtYTQzNzFkYTYyYjQ1IiwiZXZlbnRfaWQiOiI2MjgyOTNkNi01YmE2LTRjMjQtYTNmMS0zODlhNWQzNzNjZDkiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6ImF3cy5jb2duaXRvLnNpZ25pbi51c2VyLmFkbWluIiwiYXV0aF90aW1lIjoxNjk3MDIyMjE2LCJleHAiOjE2OTcwMjU4MTYsImlhdCI6MTY5NzAyMjIxNiwianRpIjoiMDRjZDg2YzctZTNhOS00OWI1LWI3NmMtODI5MTU3YjExNmQyIiwidXNlcm5hbWUiOiIxMzgxZDRjZi03ZTY2LTQ2NDktYTgxNC1hYjdhOTAwMTg3OTIifQ.m7bn9GUFENojtcuZ4OCjITMEX3ty4kSN40A4_W1Ppf90_Ic3ns-tQiqb-nI_xAm9itFnlaVzbzfzOuSswVuDshMYxBVvanbX_ySK16GzgZxJ9sTD3gK5C9TN04iZI_6VvQr7Npwv29gYXBoVX6Uz66x2la1lZe7HOa2G2NLg2cMF9dEJNs2k9FbvAGogfu6Hr3XgGlAZsaTeB6kX2NEAujQRGIF6CY1dmQsVzTgif1kNVzpzPvFD-UKlHY5ZE6bf-3fSheTtbul6gkh9rJhxQhFL_EzZHE5gy613mpwTklnH5r2-2wzPvL5mWap0mZjZH8mMQgOc2Im1BU5DtVzkpA'
+      loginToken: 'eyJraWQiOiJGY2hCY1B6U092REpCb0tFWTNSZjRGSkFkaElGSGNORGJYZ2tKZFh0azAwPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJiNDlhN2FjZC1kODQ5LTQyZTItOWI0Ny0zMDE1NGE3YjUzNTIiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuYXAtbm9ydGhlYXN0LTEuYW1hem9uYXdzLmNvbVwvYXAtbm9ydGhlYXN0LTFfVzlucno3SkNoIiwiY2xpZW50X2lkIjoiM3M3ZjdvMDk4a2pzYTQ3NDhoNGhyZWw4MmIiLCJvcmlnaW5fanRpIjoiMDUzYzdhOWQtYjAwYS00ZjgwLTgxYTEtMWYzOWNjMGJhOGE2IiwiZXZlbnRfaWQiOiJlMjc2MTc1YS1mMTYzLTQxNDktOTEyZC04YjRkYmUwNjhiOGEiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6ImF3cy5jb2duaXRvLnNpZ25pbi51c2VyLmFkbWluIiwiYXV0aF90aW1lIjoxNjk3MDgwMjc1LCJleHAiOjE2OTcwODM4NzUsImlhdCI6MTY5NzA4MDI3NSwianRpIjoiOWVhMTIzZjYtYzdiNy00NjZlLTllZWMtOTk2ZjZmZjM3MTY5IiwidXNlcm5hbWUiOiJiNDlhN2FjZC1kODQ5LTQyZTItOWI0Ny0zMDE1NGE3YjUzNTIifQ.GELWsnDsCBuPXYjJxBNvZ2dmPemr41g-X9JYH-u0hrFmT6B6gW6vjthoH_TbQpwcEoebZSuvpDSlMInl2y9BUq8WnjjHqmXDpG22-l-g6VGqtL6iM1yzjQqGhA48Nq_q-6eVC0dCbjiSNqb_4mDGRy3_gXFPBva3xQ8VaygpnwNwMGjWhuaHZP5tOqk5OP53ZgzGPa9bhepqJ1NBy8RmT2N5YqOTHv_uZ7pd3jDYkr-_y_m5CmWU07YN2Wnkv4AxILfQ2_FxAiUsKNDlFgaPEo1PWxoreDAF-Uk5a7EuLIP3jCZCSKt-VsLYEfzYMpn1YyOkAikI9RI4tHU3IYfsrQ'
     };
   },
   props: {
@@ -27,14 +32,17 @@ export default {
   mounted() {
     const echo = new Echo({
       broadcaster: 'socket.io',
-      host: 'http://localhost:6001'
+      host: 'http://localhost:8010',
+      auth: {
+        headers: {
+          Authorization: `Bearer ${this.loginToken}`,
+        },
+      }
     });
    
-    echo.join('notice.1')
+    echo.join('notice.4')
     .listen('NoticeEvent', (notice) => {
-      if (notice.data.recciverUserId == 1) {
         this.countNotice = notice.data.countNotice;
-      }
     })
   },
   methods: {
@@ -72,7 +80,7 @@ export default {
         }
       })
       .then(response => {
-        console.log(response.data);
+        this.list = response.data.data;
       })
       .catch(error => {
         console.error('Error:', error);
